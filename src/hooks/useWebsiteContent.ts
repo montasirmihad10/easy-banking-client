@@ -68,8 +68,64 @@ const fallback: WebsiteContent = {
   contactPhone: "+880 1700-000000",
   contactAddress: "EasyBank HQ, Dhaka, Bangladesh",
   supportHours: "24/7 customer support",
-  faqs: [],
-  services: [],
+  faqs: [
+    {
+      question: "How does the deposit service work and when do I get my interest?",
+      answer:
+        "Deposits are funded securely via card. Savings interest is applied from bank settings. Track growth anytime from My Banking.",
+      category: "Deposits",
+    },
+    {
+      question: "Are there any fees for withdrawals and how fast are they processed?",
+      answer:
+        "Withdrawals create a pending request: funds are held immediately and released after manager/admin approval.",
+      category: "Withdrawals",
+    },
+    {
+      question: "Can I transfer money to other EasyBank users?",
+      answer:
+        "Yes. Transfers between EasyBank accounts are instant and secured. Status shows immediately in your activity list.",
+      category: "Transfers",
+    },
+  ],
+  services: [
+    {
+      id: "deposit",
+      title: "Deposit",
+      description: "Fund your account securely with card payments",
+      highlight: "Stripe secured",
+      details: [
+        "Card checkout with Stripe",
+        "Balance updates after payment confirmation",
+        "Track every deposit in Activity",
+        "No hidden deposit fees",
+      ],
+    },
+    {
+      id: "withdraw",
+      title: "Withdraw",
+      description: "Request cash-out with branch review",
+      highlight: "Reviewed release",
+      details: [
+        "Funds held on request",
+        "Manager/admin approval required",
+        "Daily and monthly limits apply",
+        "Full status history in Activity",
+      ],
+    },
+    {
+      id: "transfer",
+      title: "Transfer",
+      description: "Send money instantly inside EasyBank",
+      highlight: "Instant ledger",
+      details: [
+        "Transfer to another EasyBank account",
+        "Instant balance updates",
+        "Account-type limits from settings",
+        "Secure encrypted processing",
+      ],
+    },
+  ],
 };
 
 export const useWebsiteContent = () => {
@@ -81,8 +137,12 @@ export const useWebsiteContent = () => {
     heroStats: settings?.website?.heroStats?.length
       ? settings.website.heroStats
       : fallback.heroStats,
-    faqs: settings?.website?.faqs || fallback.faqs,
-    services: settings?.website?.services || fallback.services,
+    faqs: settings?.website?.faqs?.length
+      ? settings.website.faqs
+      : fallback.faqs,
+    services: settings?.website?.services?.length
+      ? settings.website.services
+      : fallback.services,
   } as WebsiteContent;
 
   return {

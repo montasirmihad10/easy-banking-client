@@ -31,6 +31,7 @@ const getAccountIcon = (type: string) => {
     case "savings":
       return PiggyBank;
     case "checking":
+    case "checkout":
       return Wallet;
     case "business":
       return Briefcase;
@@ -44,6 +45,7 @@ const getAccountColor = (type: string) => {
     case "savings":
       return "#104042";
     case "checking":
+    case "checkout":
       return "#0d3335";
     case "business":
       return "#0a2b2d";

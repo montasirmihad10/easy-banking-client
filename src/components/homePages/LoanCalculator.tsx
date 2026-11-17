@@ -5,12 +5,16 @@ import { Calculator, TrendingUp } from "lucide-react";
 import { TbCoinTakaFilled } from "react-icons/tb";
 import { useGetBankSettingsQuery } from "@/redux/api/settingsApi";
 
+const TERM_OPTIONS = [6, 12, 24, 36] as const;
+
 export default function LoanCalculator() {
   const [amount, setAmount] = useState("");
+  const [termMonths, setTermMonths] = useState<(typeof TERM_OPTIONS)[number]>(12);
   const { data } = useGetBankSettingsQuery(undefined);
   const interestRate = data?.data?.defaultLoanInterestRate ?? 0.05;
+  const interestPct = `${parseFloat((interestRate * 100).toFixed(2))}`;
   const loan = Number(amount);
-  const interest = loan * interestRate;
+  const interest = loan * interestRate * (termMonths / 12);
   const total = loan + interest;
 
   const ref = useRef(null);
@@ -134,6 +138,29 @@ export default function LoanCalculator() {
               </motion.div>
             </motion.div>
 
+            {/* Term selector */}
+            <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
+              <p className="mb-2 text-xs sm:text-sm font-medium text-gray-600">
+                Loan term (months)
+              </p>
+              <div className="grid grid-cols-4 gap-2">
+                {TERM_OPTIONS.map((months) => (
+                  <button
+                    key={months}
+                    type="button"
+                    onClick={() => setTermMonths(months)}
+                    className={`h-9 sm:h-10 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+                      termMonths === months
+                        ? "bg-[#104042] text-white"
+                        : "bg-[#104042]/5 text-[#104042] border border-[#104042]/20 hover:bg-[#104042]/10"
+                    }`}
+                  >
+                    {months}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+
             {/* Button Grid - Responsive spacing */}
             <motion.div
               variants={itemVariants}
@@ -183,7 +210,7 @@ export default function LoanCalculator() {
                 <div className="flex items-center gap-2 sm:gap-3">
                   <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   <span className="font-medium text-sm sm:text-base text-gray-700">
-                    Interest (5%)
+                    Interest ({interestPct}%)
                   </span>
                 </div>
                 <span className="font-bold text-sm sm:text-base text-blue-600">
@@ -216,7 +243,9 @@ export default function LoanCalculator() {
           variants={itemVariants}
           className="text-center mt-6 sm:mt-8 text-xs sm:text-sm text-gray-500"
         >
-          <p>Interest rate: 5% per annum</p>
+          <p>
+            Interest rate: {interestPct}% per annum · Term: {termMonths} months
+          </p>
           <p className="mt-1">Enter amount to see calculations</p>
         </motion.div>
       </motion.div>

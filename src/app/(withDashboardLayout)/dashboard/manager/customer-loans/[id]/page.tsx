@@ -55,11 +55,15 @@ const ManagerSpecificCustomerLoan = () => {
     });
   };
 
-  const paidInstallments = loan.repaymentSchedule.filter(
+  const repaymentSchedule = loan.repaymentSchedule ?? [];
+  const paidInstallments = repaymentSchedule.filter(
     (payment: any) => payment.paid
   ).length;
-  const totalInstallments = loan.repaymentSchedule.length;
-  const loanProgress = (paidInstallments / totalInstallments) * 100;
+  const totalInstallments = repaymentSchedule.length;
+  const loanProgress =
+    totalInstallments > 0
+      ? (paidInstallments / totalInstallments) * 100
+      : 0;
 
   return (
     <div className="container mx-auto px-6 space-y-4 pb-12">
@@ -179,7 +183,7 @@ const ManagerSpecificCustomerLoan = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {loan.repaymentSchedule.map((payment: any, index: number) => (
+              {repaymentSchedule.map((payment: any, index: number) => (
                 <div
                   key={index}
                   className="flex items-center justify-between p-3 border rounded-lg"

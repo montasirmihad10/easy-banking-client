@@ -128,22 +128,38 @@ const fallback: WebsiteContent = {
   ],
 };
 
+const str = (value: string | undefined | null, fallbackValue: string) =>
+  value?.trim() || fallbackValue;
+
 export const useWebsiteContent = () => {
   const { data, isLoading, isError } = useGetBankSettingsQuery(undefined);
   const settings = data?.data;
-  const website = {
-    ...fallback,
-    ...(settings?.website || {}),
-    heroStats: settings?.website?.heroStats?.length
-      ? settings.website.heroStats
-      : fallback.heroStats,
-    faqs: settings?.website?.faqs?.length
-      ? settings.website.faqs
-      : fallback.faqs,
-    services: settings?.website?.services?.length
-      ? settings.website.services
-      : fallback.services,
-  } as WebsiteContent;
+  const cms = settings?.website;
+
+  const website: WebsiteContent = {
+    brandName: str(cms?.brandName, fallback.brandName),
+    heroEyebrow: str(cms?.heroEyebrow, fallback.heroEyebrow),
+    heroTitleLine1: str(cms?.heroTitleLine1, fallback.heroTitleLine1),
+    heroTitleLine2: str(cms?.heroTitleLine2, fallback.heroTitleLine2),
+    heroSubtitle: str(cms?.heroSubtitle, fallback.heroSubtitle),
+    heroPrimaryCta: str(cms?.heroPrimaryCta, fallback.heroPrimaryCta),
+    heroSecondaryCta: str(cms?.heroSecondaryCta, fallback.heroSecondaryCta),
+    heroStats: cms?.heroStats?.length ? cms.heroStats : fallback.heroStats,
+    deliveryTitle: str(cms?.deliveryTitle, fallback.deliveryTitle),
+    deliveryBody: str(cms?.deliveryBody, fallback.deliveryBody),
+    deliveryImage1: str(cms?.deliveryImage1, fallback.deliveryImage1),
+    deliveryImage2: str(cms?.deliveryImage2, fallback.deliveryImage2),
+    heroImage: str(cms?.heroImage, fallback.heroImage),
+    brandLogo: str(cms?.brandLogo, fallback.brandLogo),
+    contactTitle: str(cms?.contactTitle, fallback.contactTitle),
+    contactSubtitle: str(cms?.contactSubtitle, fallback.contactSubtitle),
+    contactEmail: str(cms?.contactEmail, fallback.contactEmail),
+    contactPhone: str(cms?.contactPhone, fallback.contactPhone),
+    contactAddress: str(cms?.contactAddress, fallback.contactAddress),
+    supportHours: str(cms?.supportHours, fallback.supportHours),
+    faqs: cms?.faqs?.length ? cms.faqs : fallback.faqs,
+    services: cms?.services?.length ? cms.services : fallback.services,
+  };
 
   return {
     website,

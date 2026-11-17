@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="">
+    <div className="pb-[calc(4rem+env(safe-area-inset-bottom,0px))] md:pb-0">
       <Navbar></Navbar>
       {children}
       <Footer />

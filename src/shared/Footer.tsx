@@ -18,9 +18,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useWebsiteContent } from "@/hooks/useWebsiteContent";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { website } = useWebsiteContent();
 
   const footerLinks = {
     company: [
@@ -112,7 +114,7 @@ const Footer = () => {
                         height={200}
                       />
                     </div>
-                    <span className="text-2xl font-bold">EasyBank</span>
+                    <span className="text-2xl font-bold">{website.brandName}</span>
                   </div>
                 </Link>
               </div>
@@ -270,7 +272,7 @@ const Footer = () => {
                     <Phone className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-gray-300 text-sm">
-                    +1 (555) 123-4567
+                    {website.contactPhone}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -281,7 +283,7 @@ const Footer = () => {
                     <Mail className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-gray-300 text-sm">
-                    support@easybank.com
+                    {website.contactEmail}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -292,7 +294,7 @@ const Footer = () => {
                     <MapPin className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-gray-300 text-sm">
-                    123 Banking St, Finance City
+                    {website.contactAddress}
                   </span>
                 </div>
               </div>
@@ -331,7 +333,7 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
                 <p className="text-gray-400 text-sm">
-                  © {currentYear} EasyBank. All rights reserved.
+                  © {currentYear} {website.brandName}. All rights reserved.
                 </p>
                 <div className="flex items-center space-x-4">
                   <Link
@@ -347,7 +349,7 @@ const Footer = () => {
                     Terms of Service
                   </Link>
                   <Link
-                    href="/cookies"
+                    href="/privacy"
                     className="text-gray-400 hover:text-white text-sm transition-colors duration-300"
                   >
                     Cookie Policy

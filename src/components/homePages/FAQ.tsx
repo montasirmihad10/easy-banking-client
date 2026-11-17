@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Plus, Minus, HelpCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -297,14 +298,16 @@ const FAQ = () => {
                 Our friendly support team is ready to help you with any
                 questions about our financial services.
               </p>
-              <motion.button
-                className="px-6 py-3 text-white font-medium text-sm rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-                style={{ backgroundColor: "#104042" }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Contact Support
-              </motion.button>
+              <Link href="/contact">
+                <motion.button
+                  className="px-6 py-3 text-white font-medium text-sm rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+                  style={{ backgroundColor: "#104042" }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Contact Support
+                </motion.button>
+              </Link>
             </div>
           </div>
         </motion.div>

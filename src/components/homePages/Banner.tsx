@@ -182,7 +182,7 @@ const Banner = () => {
             </div>
 
             {/* Right Content - Card Stack - Improved centering and sizing */}
-            <div className="relative flex justify-center items-center mt-60 mb-32 md:mb-48 lg:mb-0 lg:mt-0">
+            <div className="relative flex justify-center items-center mt-28 mb-16 sm:mt-40 sm:mb-24 md:mb-48 lg:mb-0 lg:mt-0">
               <motion.div
                 variants={itemVariants}
                 className="relative w-full max-w-md sm:max-w-lg mx-auto lg:mx-0"
@@ -371,12 +371,12 @@ const Banner = () => {
                     />
                   </motion.div>
 
-                  {/* Purple Card */}
+                  {/* Teal accent card */}
                   <motion.div
                     initial={{ opacity: 0, rotateY: 45, z: -150 }}
                     animate={{ opacity: 1, rotateY: 15, z: -20 }}
                     transition={{ delay: 0.7, duration: 0.6 }}
-                    className="absolute w-[250px] sm:w-[400px] h-56 sm:h-72 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl sm:rounded-2xl shadow-2xl transform md:-rotate-30 translate-x-12 sm:translate-x-20 -translate-y-16 sm:translate-y-4 mb-2 sm:mb-3 overflow-hidden"
+                    className="absolute w-[250px] sm:w-[400px] h-56 sm:h-72 bg-gradient-to-br from-[#104042] to-[#0a2e30] rounded-xl sm:rounded-2xl shadow-2xl transform md:-rotate-30 translate-x-12 sm:translate-x-20 -translate-y-16 sm:translate-y-4 mb-2 sm:mb-3 overflow-hidden"
                     style={{ transformStyle: "preserve-3d" }}
                   >
                     {/* Background Elements */}

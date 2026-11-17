@@ -1,10 +1,12 @@
 "use client";
 import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
+import { useWebsiteContent } from "@/hooks/useWebsiteContent";
 
 const ContactMap = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.1, once: true });
+  const { website } = useWebsiteContent();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -143,7 +145,7 @@ const ContactMap = () => {
               />
             </motion.svg>
             <span className="text-lg font-medium">
-              S.O Road, Narayanganj, Dhaka, Bangladesh
+              {website.contactAddress}
             </span>
           </div>
         </motion.div>

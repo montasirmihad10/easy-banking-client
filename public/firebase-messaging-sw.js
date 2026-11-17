@@ -32,7 +32,15 @@ messaging.onBackgroundMessage((payload) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const urlToOpen = "/";
+
+  const data = event.notification.data || {};
+  const type = (data.type || "").toLowerCase();
+  let path = "/banking/notifications";
+  if (type === "loan") path = "/banking/loan";
+  else if (type === "transaction") path = "/banking/activity";
+  else if (type === "support") path = "/banking/support";
+
+  const urlToOpen = new URL(path, self.location.origin).href;
 
   event.waitUntil(
     clients
@@ -40,7 +48,11 @@ self.addEventListener("notificationclick", (event) => {
       .then((windowClients) => {
         for (const client of windowClients) {
           if (client.url.includes(self.location.origin) && "focus" in client) {
-            return client.focus();
+            client.focus();
+            if ("navigate" in client) {
+              return client.navigate(urlToOpen);
+            }
+            return client;
           }
         }
         return clients.openWindow(urlToOpen);

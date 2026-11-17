@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { onMessage, Unsubscribe } from "firebase/messaging";
 import { toast } from "sonner";
 import { getMessagingInstance } from "@/lib/firebase/firebase";
+import { baseApi } from "@/redux/api/baseApi";
 
 const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     let unsubscribe: Unsubscribe | undefined;
 
@@ -25,6 +29,8 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
         unsubscribe = onMessage(messaging, (payload) => {
           const title = payload.notification?.title || "EasyBank";
           const body = payload.notification?.body || "";
+
+          dispatch(baseApi.util.invalidateTags(["notification"]));
 
           toast(title, {
             description: body,
@@ -54,7 +60,7 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
 
     setupListener();
     return () => unsubscribe?.();
-  }, []);
+  }, [dispatch]);
 
   return <>{children}</>;
 };

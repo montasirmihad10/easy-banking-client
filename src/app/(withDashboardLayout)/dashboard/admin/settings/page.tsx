@@ -43,9 +43,13 @@ type BankingForm = {
   withdrawMaxPerDay: number;
   checkingWithdrawDailyAmountLimit: number;
   businessWithdrawDailyAmountLimit: number;
+  savingsWithdrawDailyAmountLimit?: number | null;
   checkingTransferDailyAmountLimit: number;
   checkingTransferDailyCountLimit: number;
   businessTransferDailyAmountLimit: number;
+  savingsTransferDailyAmountLimit?: number | null;
+  savingsTransferDailyCountLimit?: number | null;
+  interestCompoundingFrequencyPerYear: number;
   allowAdminDirectBalanceEdit: boolean;
 };
 
@@ -117,11 +121,19 @@ const AdminSettingsPage = () => {
         settings.checkingWithdrawDailyAmountLimit,
       businessWithdrawDailyAmountLimit:
         settings.businessWithdrawDailyAmountLimit,
+      savingsWithdrawDailyAmountLimit:
+        settings.savingsWithdrawDailyAmountLimit ?? undefined,
       checkingTransferDailyAmountLimit:
         settings.checkingTransferDailyAmountLimit,
       checkingTransferDailyCountLimit: settings.checkingTransferDailyCountLimit,
       businessTransferDailyAmountLimit:
         settings.businessTransferDailyAmountLimit,
+      savingsTransferDailyAmountLimit:
+        settings.savingsTransferDailyAmountLimit ?? undefined,
+      savingsTransferDailyCountLimit:
+        settings.savingsTransferDailyCountLimit ?? undefined,
+      interestCompoundingFrequencyPerYear:
+        settings.interestCompoundingFrequencyPerYear ?? 1,
       allowAdminDirectBalanceEdit: settings.allowAdminDirectBalanceEdit,
     });
     websiteForm.reset({
@@ -179,6 +191,12 @@ const AdminSettingsPage = () => {
       businessWithdrawDailyAmountLimit: Number(
         form.businessWithdrawDailyAmountLimit,
       ),
+      savingsWithdrawDailyAmountLimit:
+        form.savingsWithdrawDailyAmountLimit === undefined ||
+        form.savingsWithdrawDailyAmountLimit === null ||
+        Number.isNaN(Number(form.savingsWithdrawDailyAmountLimit))
+          ? null
+          : Number(form.savingsWithdrawDailyAmountLimit),
       checkingTransferDailyAmountLimit: Number(
         form.checkingTransferDailyAmountLimit,
       ),
@@ -187,6 +205,21 @@ const AdminSettingsPage = () => {
       ),
       businessTransferDailyAmountLimit: Number(
         form.businessTransferDailyAmountLimit,
+      ),
+      savingsTransferDailyAmountLimit:
+        form.savingsTransferDailyAmountLimit === undefined ||
+        form.savingsTransferDailyAmountLimit === null ||
+        Number.isNaN(Number(form.savingsTransferDailyAmountLimit))
+          ? null
+          : Number(form.savingsTransferDailyAmountLimit),
+      savingsTransferDailyCountLimit:
+        form.savingsTransferDailyCountLimit === undefined ||
+        form.savingsTransferDailyCountLimit === null ||
+        Number.isNaN(Number(form.savingsTransferDailyCountLimit))
+          ? null
+          : Number(form.savingsTransferDailyCountLimit),
+      interestCompoundingFrequencyPerYear: Number(
+        form.interestCompoundingFrequencyPerYear,
       ),
       allowAdminDirectBalanceEdit: Boolean(form.allowAdminDirectBalanceEdit),
     });
@@ -310,7 +343,7 @@ const AdminSettingsPage = () => {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Interest & loans
             </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Field label="Savings annual interest (%)">
                 <Input
                   type="number"
@@ -318,6 +351,16 @@ const AdminSettingsPage = () => {
                   {...bankingForm.register("savingsAnnualInterestRatePercent", {
                     valueAsNumber: true,
                   })}
+                />
+              </Field>
+              <Field label="Compounding / year">
+                <Input
+                  type="number"
+                  min={1}
+                  {...bankingForm.register(
+                    "interestCompoundingFrequencyPerYear",
+                    { valueAsNumber: true },
+                  )}
                 />
               </Field>
               <Field label="Default loan interest (%)">
@@ -377,6 +420,14 @@ const AdminSettingsPage = () => {
                   })}
                 />
               </Field>
+              <Field label="Savings withdraw daily amount">
+                <Input
+                  type="number"
+                  {...bankingForm.register("savingsWithdrawDailyAmountLimit", {
+                    valueAsNumber: true,
+                  })}
+                />
+              </Field>
               <Field label="Checking transfer daily amount">
                 <Input
                   type="number"
@@ -397,6 +448,22 @@ const AdminSettingsPage = () => {
                 <Input
                   type="number"
                   {...bankingForm.register("businessTransferDailyAmountLimit", {
+                    valueAsNumber: true,
+                  })}
+                />
+              </Field>
+              <Field label="Savings transfer daily amount">
+                <Input
+                  type="number"
+                  {...bankingForm.register("savingsTransferDailyAmountLimit", {
+                    valueAsNumber: true,
+                  })}
+                />
+              </Field>
+              <Field label="Savings transfer daily count">
+                <Input
+                  type="number"
+                  {...bankingForm.register("savingsTransferDailyCountLimit", {
                     valueAsNumber: true,
                   })}
                 />

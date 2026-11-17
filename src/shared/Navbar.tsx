@@ -38,9 +38,16 @@ import {
 import { usePathname } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShimmerButton } from "@/components/ui/ShimmerButton";
+import { useWebsiteContent } from "@/hooks/useWebsiteContent";
+
+const DEFAULT_LOGO =
+  "https://i.ibb.co/wZ0721GL/be-eb-b-e-abstract-260nw-2385258941-removebg-preview.png";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { website } = useWebsiteContent();
+  const brandName = website.brandName || "EasyBank";
+  const brandLogo = website.brandLogo || DEFAULT_LOGO;
   const [user, setUser] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -85,18 +92,19 @@ const Navbar = () => {
           <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center shadow-lg">
             <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center">
               <Image
-                src="https://i.ibb.co/wZ0721GL/be-eb-b-e-abstract-260nw-2385258941-removebg-preview.png"
+                src={brandLogo}
                 width={100}
                 height={100}
-                alt="EasyBank Logo"
+                alt={`${brandName} Logo`}
                 className="w-full h-full object-contain"
+                priority
               />
             </div>
           </div>
         </div>
         <div>
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-black">
-            EasyBank
+            {brandName}
           </h1>
         </div>
       </Link>
@@ -534,16 +542,16 @@ const Navbar = () => {
                   <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
                     <div className="w-6 h-6 rounded-md flex items-center justify-center">
                       <Image
-                        src="https://i.ibb.co/wZ0721GL/be-eb-b-e-abstract-260nw-2385258941-removebg-preview.png"
+                        src={brandLogo}
                         width={100}
                         height={100}
-                        alt="EasyBank Logo"
+                        alt={`${brandName} Logo`}
                         className="w-full h-full object-contain"
                       />
                     </div>
                   </div>
                   <div>
-                    <h2 className="font-bold text-white text-lg">EasyBank</h2>
+                    <h2 className="font-bold text-white text-lg">{brandName}</h2>
                     <p className="text-xs text-white/70">Financial Services</p>
                   </div>
                 </div>

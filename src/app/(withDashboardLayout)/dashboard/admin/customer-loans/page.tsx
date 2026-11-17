@@ -257,7 +257,6 @@ const AdminCustomerLoansPage = () => {
               <SelectContent>
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="approved">Approved</SelectItem>
                 <SelectItem value="rejected">Rejected</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="paid">Paid</SelectItem>

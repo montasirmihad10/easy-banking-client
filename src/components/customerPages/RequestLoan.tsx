@@ -9,12 +9,14 @@ import EBInput from "@/shared/form/EBInput";
 import EBDatePicker from "@/shared/form/EBDatePicker";
 import dayjs from "dayjs";
 import { useRequestLoanMutation } from "@/redux/api/loanApi";
+import { useWebsiteContent } from "@/hooks/useWebsiteContent";
 import { toast } from "sonner";
 import AuthLoading from "@/shared/loader/AuthLoading";
 import { TbCoinTaka } from "react-icons/tb";
 
 const RequestLoan = ({ myAccount }: { myAccount: any }) => {
   const [requestLoan, { isLoading }] = useRequestLoanMutation();
+  const { website } = useWebsiteContent();
 
   const branch = myAccount?.data?.branch?._id;
   const onSubmit = async (data: FieldValues) => {
@@ -164,7 +166,7 @@ const RequestLoan = ({ myAccount }: { myAccount: any }) => {
           <p className="text-sm text-gray-500">
             Need help? Contact our support team at{" "}
             <span className="text-[#104042] ">
-              support@bank.com
+              {website.contactEmail}
             </span>
           </p>
         </motion.div>

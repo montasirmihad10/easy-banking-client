@@ -13,7 +13,6 @@ import {
   LogOut,
   User,
   Banknote,
-  LifeBuoy,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getUser } from "@/services/authServices";
@@ -42,7 +41,7 @@ const quickActions = [
 const mobileNav = [
   { label: "Home", href: "/banking", icon: Home, exact: true },
   { label: "Activity", href: "/banking/activity", icon: List },
-  { label: "Support", href: "/banking/support", icon: LifeBuoy },
+  { label: "Loan", href: "/banking/loan", icon: Banknote },
   { label: "Account", href: "/banking/account", icon: User },
 ];
 

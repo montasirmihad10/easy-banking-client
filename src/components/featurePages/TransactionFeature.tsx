@@ -200,7 +200,7 @@ const TransactionFeature = () => {
 
           {/* Right Scrollable Content */}
           <motion.div className="lg:w-3/5" variants={rightContentVariants}>
-            <div className="h-[600px] overflow-y-auto hide-scrollbar space-y-6">
+            <div className="h-auto overflow-visible lg:h-[600px] lg:overflow-y-auto hide-scrollbar space-y-6">
               <div className="space-y-5">
                 {services.map((service, index) => (
                   <motion.div

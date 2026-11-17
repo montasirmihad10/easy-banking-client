@@ -12,6 +12,7 @@ export default function InterestCalculator() {
   const settings = data?.data;
 
   const interestRate = settings?.savingsAnnualInterestRate ?? 0.06;
+  const interestPct = `${parseFloat((interestRate * 100).toFixed(2))}`;
   const n = settings?.interestCompoundingFrequencyPerYear ?? 1;
   const t = 1;
 
@@ -102,8 +103,10 @@ export default function InterestCalculator() {
           </h1>
           <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto">
             Enter an amount to calculate your compound interest after 1 year at{" "}
-            <span className="font-semibold text-[#104042]">6% interest</span> on
-            a savings account.
+            <span className="font-semibold text-[#104042]">
+              {interestPct}% interest
+            </span>{" "}
+            on a savings account.
           </p>
         </motion.div>
 
@@ -182,7 +185,7 @@ export default function InterestCalculator() {
                 <div className="flex items-center gap-3">
                   <TrendingUp className="w-5 h-5 text-blue-600" />
                   <span className="font-medium text-base text-gray-700">
-                    Compound Interest (6%)
+                    Compound Interest ({interestPct}%)
                   </span>
                 </div>
                 <span className="font-bold text-base text-blue-600">
@@ -216,8 +219,8 @@ export default function InterestCalculator() {
           className="text-center mt-8 text-sm text-gray-500"
         >
           <p>
-            This calculator is based on 1 year compound interest at 6% for
-            savings accounts.
+            This calculator is based on 1 year compound interest at {interestPct}
+            % for savings accounts.
           </p>
         </motion.div>
       </motion.div>
